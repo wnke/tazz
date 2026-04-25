@@ -19,7 +19,7 @@ func NewDeviceRepository(queries *db.Queries) *DeviceRepository {
 
 func (r *DeviceRepository) Create(ctx context.Context, device domain.Device) (domain.Device, error) {
 	created, err := r.queries.CreateDevice(ctx, db.CreateDeviceParams{
-		URL:      device.URL,
+		Url:      device.URL,
 		Username: device.Username,
 		Password: device.Password,
 	})
@@ -29,7 +29,7 @@ func (r *DeviceRepository) Create(ctx context.Context, device domain.Device) (do
 
 	return domain.Device{
 		ID:       created.ID,
-		URL:      created.URL,
+		URL:      created.Url,
 		Username: created.Username,
 		Password: created.Password,
 	}, nil
@@ -46,7 +46,7 @@ func (r *DeviceRepository) GetByID(ctx context.Context, id int64) (domain.Device
 
 	return domain.Device{
 		ID:       device.ID,
-		URL:      device.URL,
+		URL:      device.Url,
 		Username: device.Username,
 		Password: device.Password,
 	}, nil
@@ -62,7 +62,7 @@ func (r *DeviceRepository) List(ctx context.Context) ([]domain.Device, error) {
 	for _, d := range devices {
 		out = append(out, domain.Device{
 			ID:       d.ID,
-			URL:      d.URL,
+			URL:      d.Url,
 			Username: d.Username,
 			Password: d.Password,
 		})
@@ -73,7 +73,7 @@ func (r *DeviceRepository) List(ctx context.Context) ([]domain.Device, error) {
 
 func (r *DeviceRepository) Update(ctx context.Context, device domain.Device) (domain.Device, error) {
 	updated, err := r.queries.UpdateDevice(ctx, db.UpdateDeviceParams{
-		URL:      device.URL,
+		Url:      device.URL,
 		Username: device.Username,
 		Password: device.Password,
 		ID:       device.ID,
@@ -87,7 +87,7 @@ func (r *DeviceRepository) Update(ctx context.Context, device domain.Device) (do
 
 	return domain.Device{
 		ID:       updated.ID,
-		URL:      updated.URL,
+		URL:      updated.Url,
 		Username: updated.Username,
 		Password: updated.Password,
 	}, nil
