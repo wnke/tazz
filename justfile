@@ -1,9 +1,14 @@
 set shell := ["bash", "-cu"]
 
-generator := "oapi-codegen"
-
 gen-api:
-	{{generator}} -config internal/driver/http/oapi-codegen.yaml internal/driver/http/openapi.yaml
+	oapi-codegen -config internal/driver/http/oapi-codegen.yaml internal/driver/http/openapi.yaml
 
 test:
 	go test ./...
+
+lint:
+	golangci-lint run
+
+check:
+	just lint
+	just test
