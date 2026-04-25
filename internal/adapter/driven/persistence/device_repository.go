@@ -27,7 +27,12 @@ func (r *DeviceRepository) Create(ctx context.Context, device domain.Device) (do
 		return domain.Device{}, err
 	}
 
-	return toDevice(created), nil
+	return domain.Device{
+		ID:       created.ID,
+		URL:      created.URL,
+		Username: created.Username,
+		Password: created.Password,
+	}, nil
 }
 
 func (r *DeviceRepository) GetByID(ctx context.Context, id int64) (domain.Device, error) {
@@ -39,7 +44,12 @@ func (r *DeviceRepository) GetByID(ctx context.Context, id int64) (domain.Device
 		return domain.Device{}, err
 	}
 
-	return toDevice(device), nil
+	return domain.Device{
+		ID:       device.ID,
+		URL:      device.URL,
+		Username: device.Username,
+		Password: device.Password,
+	}, nil
 }
 
 func (r *DeviceRepository) List(ctx context.Context) ([]domain.Device, error) {
@@ -50,7 +60,12 @@ func (r *DeviceRepository) List(ctx context.Context) ([]domain.Device, error) {
 
 	out := make([]domain.Device, 0, len(devices))
 	for _, d := range devices {
-		out = append(out, toDevice(d))
+		out = append(out, domain.Device{
+			ID:       d.ID,
+			URL:      d.URL,
+			Username: d.Username,
+			Password: d.Password,
+		})
 	}
 
 	return out, nil
@@ -70,7 +85,12 @@ func (r *DeviceRepository) Update(ctx context.Context, device domain.Device) (do
 		return domain.Device{}, err
 	}
 
-	return toDevice(updated), nil
+	return domain.Device{
+		ID:       updated.ID,
+		URL:      updated.URL,
+		Username: updated.Username,
+		Password: updated.Password,
+	}, nil
 }
 
 func (r *DeviceRepository) Delete(ctx context.Context, id int64) error {
@@ -83,13 +103,4 @@ func (r *DeviceRepository) Delete(ctx context.Context, id int64) error {
 	}
 
 	return nil
-}
-
-func toDevice(device db.Device) domain.Device {
-	return domain.Device{
-		ID:       device.ID,
-		URL:      device.URL,
-		Username: device.Username,
-		Password: device.Password,
-	}
 }
