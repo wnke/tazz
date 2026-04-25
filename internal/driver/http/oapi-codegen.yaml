@@ -1,0 +1,8 @@
+package: gen
+generate:
+  models: true
+  handler:
+    kind: chi
+output:
+  directory: internal/driver/http
+  filename: openapi.gen.go
